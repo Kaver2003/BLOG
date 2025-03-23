@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Kaver2003/BLOG.git/static/css/main.899549f1.css",
+    "main.js": "/Kaver2003/BLOG.git/static/js/main.dbf0c13e.js",
+    "index.html": "/Kaver2003/BLOG.git/index.html",
+    "main.899549f1.css.map": "/Kaver2003/BLOG.git/static/css/main.899549f1.css.map",
+    "main.dbf0c13e.js.map": "/Kaver2003/BLOG.git/static/js/main.dbf0c13e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.899549f1.css",
+    "static/js/main.dbf0c13e.js"
+  ]
+}
