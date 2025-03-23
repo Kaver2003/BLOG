@@ -1,29 +1,42 @@
-import {useState} from 'react';
-import {useAuth} from '../../contex/AuthContext';
+import { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
 import PostItem from './PostItem';
-import PostEditor from './PostEditor';
+import { Link } from 'react-router-dom';
 
 export default function PostList() {
-    const {currentUser, posts} = useAuth();
-    const [editingPost, setEditingPost] = useState(null);
-    const [filterTag, setFilterTag] = useState('');
+    const { posts, currentUser } = useAuth();
+    const [selectedTag, setSelectedTag] = useState('');
+
+
+    const allTags = [
+        ...new Set(
+            posts
+                .flatMap(post => post.tags)
+                .filter(tag => tag.trim())
+        )
+    ];
+
 
     const filteredPosts = posts.filter(post => {
-        const isVisible = post.isPublic ||
-            post.author === currentUser?.username ||
-            currentUser?.subscriptions.includes(post.author);
-
-        return isVisible && (filterTag ? post.tags.includes(filterTag) : true);
+        const isVisible =
+            post.isPublic ||
+            (currentUser && (
+                post.author === currentUser.username ||
+                currentUser.subscriptions.includes(post.author)
+            ));
+        return isVisible && (selectedTag ? post.tags.includes(selectedTag) : true);
     });
-
-    const allTags = [...new Set(posts.flatMap(p => p.tags))];
 
     return (
         <div className="post-list">
-            <div className="filters">
+            {/* Фильтр по тегам */}
+            <div className="tag-filter">
+                <label htmlFor="tag-select">Сортировка по тегам:</label>
                 <select
-                    value={filterTag}
-                    onChange={(e) => setFilterTag(e.target.value)}
+                    id="tag-select"
+                    value={selectedTag}
+                    onChange={(e) => setSelectedTag(e.target.value)}
+                    className="tag-select"
                 >
                     <option value="">Все теги</option>
                     {allTags.map(tag => (
@@ -32,20 +45,17 @@ export default function PostList() {
                 </select>
             </div>
 
-            {editingPost ? (
-                <PostEditor
-                    post={editingPost}
-                    onSave={() => setEditingPost(null)}
-                />
+            {/* Список постов */}
+            {filteredPosts.length === 0 ? (
+                <div className="empty-state">
+                    <h3>Пока нет ни одного поста 😔</h3>
+                    <Link to="/create-post" className="cta-button">
+                        Создать первый пост
+                    </Link>
+                </div>
             ) : (
                 filteredPosts.map(post => (
-                    <PostItem
-                        key={post.id}
-                        post={post}
-                        onEdit={setEditingPost}
-                        onDelete={() => {/* Реализуйте удаление в контексте */
-                        }}
-                    />
+                    <PostItem key={post.id} post={post} />
                 ))
             )}
         </div>
