@@ -156,12 +156,20 @@ nav a:hover {
 
 .post-editor input,
 .post-editor textarea {
-    width: 100%;
-    margin-bottom: 1rem;
-    padding: 0.8rem;
     border: 2px solid var(--primary-200);
     border-radius: 8px;
     transition: border-color 0.3s ease;
+    width: 100%;
+    max-width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--primary-200);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    resize: none;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.5;
 }
 
 .post-editor input:focus,
@@ -434,10 +442,9 @@ nav a:hover {
     padding: 0.75rem;
     border-radius: 25px;
     cursor: pointer;
-    transition:
-            background-color 0.3s ease,
-            transform 0.2s ease,
-            box-shadow 0.3s ease;
+    transition: background-color 0.3s ease,
+    transform 0.2s ease,
+    box-shadow 0.3s ease;
 }
 
 .auth-button:hover {
@@ -498,6 +505,7 @@ nav a:hover {
     .empty-state {
         padding: 1rem;
     }
+
     .comment-input {
         font-size: 0.9rem;
     }
@@ -523,18 +531,16 @@ nav a:hover {
 
     .post-editor input,
     .post-editor textarea {
-        width: 100%;
-        max-width: 100%;
         padding: 0.75rem;
         border: 2px solid var(--primary-200);
         border-radius: 8px;
-        margin-bottom: 0.5rem;
         resize: none;
         box-sizing: border-box;
         font-family: inherit;
         font-size: 13px;
         line-height: 1.5;
     }
+
     .comment-input {
         padding: 0.5rem;
     }
